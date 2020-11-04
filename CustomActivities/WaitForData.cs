@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Activities;
 
 namespace CustomActivities
@@ -10,10 +7,7 @@ namespace CustomActivities
   {
     [RequiredArgument] public InArgument<string> BookmarkName { get; set; }
 
-    protected override bool CanInduceIdle
-    {
-      get { return true; }
-    }
+    protected override bool CanInduceIdle => true;
 
     protected override void Execute(NativeActivityContext context)
     {
@@ -32,12 +26,5 @@ namespace CustomActivities
       
       Result.Set(context, data);
     }
-  }
-
-  public class Manager
-  {
-    public bool Approved { get; set; }
-
-    public string ManagerName { get; set; }
   }
 }

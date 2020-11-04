@@ -28,8 +28,9 @@ namespace CustomActivities
       }
 
       Manager manager = data as Manager;
-      // Simulation of the wrong code, so the test must fail
+      // Simulation of the wrong code (setting the approved to false), so the test must fail
       manager.Approved = false;
+
       Result.Set(context, data);
     }
   }
