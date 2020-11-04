@@ -64,7 +64,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Nothing.cs" />
+    <Compile Include="ReportProcessingWithDisapprovalWorkflowTests.cs" />
+    <Compile Include="ReportProcessingWorkflowTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Retry.cs" />
   </ItemGroup>
