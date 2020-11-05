@@ -13,7 +13,7 @@ namespace UnitTests
     {
       var policy = Policy.HandleResult<bool>(false)
         .WaitAndRetry(
-          new List<int> {10, 50, 100, 200, 300, 500, 1000}
+          new List<int> {10, 50, 100, 200, 300, 500, 1000, 4000}
             .Select(o => TimeSpan.FromMilliseconds(o)),
           (res, attempt) =>
           {

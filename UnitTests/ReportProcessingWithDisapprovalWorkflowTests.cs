@@ -17,57 +17,25 @@ namespace UnitTests
     [Test]
     public void ResumeButFailWithAWrongWorkflow()
     {
-      AutoResetEvent waitHandle = new AutoResetEvent(false);
-      WorkflowApplication wfApp = new WorkflowApplication(
-        new ReportProcessingWithDisapproval(),
-        new Dictionary<string, object>
-        {
-          {
-            "report", new ExpenseReport
-            {
-              Employee = new Person(),
-              StartDate = DateTime.Now,
-              EndDate = DateTime.Now
-            }
-          }
-        });
+      WorkflowApplicationProxy application = new WorkflowApplicationBuilder()
+        .ForWorkflow(new ReportProcessingWithDisapproval())
+        .WithData("report", new ExpenseReportBuilder().DefaultData().Build())
+        .Build();
 
-      Manager response = null;
-      wfApp.Completed += (wce) =>
-      {
-        response = (Manager)wce.Outputs["managerResponse"];
-        waitHandle.Set();
-      };
-      wfApp.Idle += (wce) =>
-      {
-        waitHandle.Set();
-      };
-      Exception ex = null;
-      wfApp.OnUnhandledException += arg =>
-      {
-        ex = arg.UnhandledException;
-        waitHandle.Set();
-        return UnhandledExceptionAction.Abort;
-      };
-
-      wfApp.Run();
-      waitHandle.WaitOne();
+      application.Run();
 
       // Simulating the wrong code since the ReportProcessingWithDisapproval is not implemented correctly
-      var managerResponse = new Manager {Approved = true};
-      wfApp.ResumeBookmark("SubmitResponse", managerResponse);
+      var managerResponse = new Manager { Approved = true };
+      application.ResumeBookmark("SubmitResponse", managerResponse);
 
-      Retry.WaitUntil(TestContext.Progress).Execute(() => response != null);
+      Retry.WaitUntil(TestContext.Progress).Execute(() => application.ActualOutputs != null);
+      Manager actualResponse = (Manager)application.ActualOutputs["managerResponse"];
 
       // Assert
-      if (ex != null)
-      {
-        TestContext.Progress.WriteLine(ex);
-        throw ex;
-      }
+      application.VerifyAnError();
 
-      response.Should().NotBeNull();
-      response.Approved.Should().BeTrue();
+      actualResponse.Should().NotBeNull();
+      actualResponse.Approved.Should().BeTrue();
     }
   }
 }
