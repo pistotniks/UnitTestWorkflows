@@ -1,8 +1,4 @@
-﻿using System;
-using System.Activities;
-using System.Collections.Generic;
-using System.Threading;
-using EmployeeExpensesApplication;
+﻿using EmployeeExpensesApplication;
 using ExpenseReporting;
 using FluentAssertions;
 using NUnit.Framework;

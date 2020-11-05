@@ -1,10 +1,5 @@
-﻿using System;
-using System.Activities;
-using System.Collections.Generic;
-using System.Threading;
-using CustomActivities;
+﻿using CustomActivities;
 using EmployeeExpensesApplication;
-using ExpenseReporting;
 using FluentAssertions;
 using NUnit.Framework;
 
