@@ -69,6 +69,39 @@ namespace UnitTests
       actualResponse.Approved.Should().BeTrue();
     }
 
+    [Test]
+    public void ApproveAndResumeWithBuilder()
+    {
+      WorkflowApplicationProxy application = new WorkflowApplicationBuilder()
+        .ForWorkflow(new ReportProcessing())
+        .WithData("report", new ExpenseReport
+        {
+          Employee = new Person(),
+          StartDate = DateTime.Now,
+          EndDate = DateTime.Now
+        })
+        .Build();
+
+      application.Run();
+
+      var managerResponse = new ManagerResponse { Approved = true };
+      application.ResumeBookmark("SubmitResponse", managerResponse);
+
+      Retry.WaitUntil(TestContext.Progress).Execute(() => application.ActualOutputs != null);
+      ManagerResponse actualResponse = (ManagerResponse)application.ActualOutputs["managerResponse"];
+
+      // Assert
+      if (application.Ex != null)
+      {
+        TestContext.Progress.WriteLine(application.Ex);
+        throw application.Ex;
+      }
+
+      actualResponse.Should().NotBeNull();
+      TestContext.Progress.WriteLine("Workflow completed and managers response to approve is - {0}", actualResponse.Approved.ToString());
+      actualResponse.Approved.Should().BeTrue();
+    }
+
     // The test must fail, since we are throwing an exc in the workflow
     [Test]
     public void ShouldHandleException()

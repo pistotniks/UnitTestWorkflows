@@ -71,6 +71,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Retry.cs" />
     <Compile Include="SendMailActivityTests.cs" />
+    <Compile Include="WorkflowApplicationBuilder.cs" />
+    <Compile Include="WorkflowApplicationProxy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
