@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Activities;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading;
 using EmployeeExpensesApplication;
 using ExpenseReporting;
@@ -11,7 +10,7 @@ using NUnit.Framework;
 namespace UnitTests
 {
   [TestFixture, Explicit]
-  public class ReportProcessingWorkflowTestsNew
+  public class ReportProcessingWorkflowTests
   {
     // Happy path: The test should pass and expectations are set correctly
     [Test]

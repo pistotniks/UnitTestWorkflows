@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Activities;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading;
 using CustomActivities;
 using EmployeeExpensesApplication;
@@ -11,7 +10,7 @@ using NUnit.Framework;
 
 namespace UnitTests
 {
-  public class ReportProcessingWithDisapprovalWorkflowTestsNew
+  public class ReportProcessingWithDisapprovalWorkflowTests
   {
     // Testing a different workflow ReportProcessingWithDisapproval that has a simulated bug that resets the data to unexpected value
     // The test must fail (be red not green) with the proper log and fail on assertion that is logged
