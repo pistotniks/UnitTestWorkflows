@@ -56,7 +56,7 @@ namespace UnitTests
       if (!mIsWorkflowCompleted)
       {
         // if the workflow is not completed after retrying, then the assertion failed many times and we fail the test
-        Assert.Fail("Workflow failed due to assertion failing");
+        Assert.Fail("Workflow failed due to assertion failing. See the logs for exception details.");
       }
     }
 

@@ -58,7 +58,7 @@ namespace XUnitTests
       if (!mIsWorkflowCompleted)
       {
         // if the workflow is not completed after retrying, then the assertion failed many times and we fail the test
-        throw new XunitException("Workflow failed due to assertion failing");
+        throw new XunitException("Workflow failed due to assertion failing. See the logs for exception details.");
       }
     }
 
