@@ -14,7 +14,7 @@ namespace UnitTests
   {
     // Happy path: The test should pass and expectations are set correctly
     [Test]
-    public void ApproveAndResume()
+    public void ApproveAndResumeNoisy()
     {
       AutoResetEvent waitHandle = new AutoResetEvent(false);
       WorkflowApplication wfApp = new WorkflowApplication(
@@ -70,7 +70,7 @@ namespace UnitTests
     }
 
     [Test]
-    public void ApproveAndResumeWithBuilder()
+    public void ApproveAndResume()
     {
       WorkflowApplicationProxy application = new WorkflowApplicationBuilder()
         .ForWorkflow(new ReportProcessing())
@@ -105,6 +105,53 @@ namespace UnitTests
     // The test must fail, since we are throwing an exc in the workflow
     [Test]
     public void ShouldHandleException()
+    {
+      AutoResetEvent waitHandle = new AutoResetEvent(false);
+      WorkflowApplication wfApp = new WorkflowApplication(
+        new ReportProcessing(),
+        new Dictionary<string, object>
+        {
+          {
+            "report", new ExpenseReport
+            {
+              Employee = new Person(),
+              StartDate = DateTime.Now,
+              EndDate = DateTime.Now
+            }
+          }
+        });
+
+      wfApp.Idle += (wce) =>
+      {
+        waitHandle.Set();
+      };
+      Exception ex = null;
+      wfApp.OnUnhandledException += args =>
+      {
+        ex = args.UnhandledException;
+        waitHandle.Set();
+        return UnhandledExceptionAction.Abort;
+      };
+
+      wfApp.Run();
+      waitHandle.WaitOne();
+
+      // Simulating a null response, where the code will throw an exception
+      ManagerResponse nullData = null;
+      wfApp.ResumeBookmark("SubmitResponse", nullData);
+
+      Retry.WaitUntil(TestContext.Progress).Execute(() => ex != null);
+
+      if (ex != null)
+      {
+        TestContext.Progress.WriteLine(ex);
+        throw ex;
+      }
+      Assert.Fail("Exception should have been thrown");
+    }
+
+    [Test]
+    public void ShouldHandleExceptionWithBuilder()
     {
       AutoResetEvent waitHandle = new AutoResetEvent(false);
       WorkflowApplication wfApp = new WorkflowApplication(
