@@ -17,9 +17,6 @@ namespace UnitTests
     [Test]
     public void ApproveAndResume()
     {
-      bool isWorkflowCompleted = false;
-      Exception ex = null;
-      TextWriter textWriter = TestContext.Progress;
       AutoResetEvent waitHandle = new AutoResetEvent(false);
       WorkflowApplication wfApp = new WorkflowApplication(
         new ReportProcessing(),
@@ -35,20 +32,19 @@ namespace UnitTests
           }
         });
 
-      ManagerResponse response = null;
+      ManagerResponse actualResponse = null;
       wfApp.Completed += (wce) =>
       {
-        response = (ManagerResponse)wce.Outputs["managerResponse"];
-        isWorkflowCompleted = true;
+        actualResponse = (ManagerResponse)wce.Outputs["managerResponse"];
         waitHandle.Set();
       };
       wfApp.Idle += (wce) =>
       {
         waitHandle.Set();
       };
+      Exception ex = null;
       wfApp.OnUnhandledException += arg =>
       {
-        textWriter.WriteLine("Ex.:" + arg.UnhandledException);
         ex = arg.UnhandledException;
         waitHandle.Set();
         return UnhandledExceptionAction.Abort;
@@ -60,25 +56,24 @@ namespace UnitTests
       var managerResponse = new ManagerResponse {Approved = true};
       wfApp.ResumeBookmark("SubmitResponse", managerResponse);
 
-      Retry.WaitUntil(textWriter).Execute(() => isWorkflowCompleted);
-      if (!isWorkflowCompleted)
-      {
-        // if the workflow is not completed after retrying, then the assertion failed many times and we fail the test
-        Assert.Fail("Workflow failed due to assertion failing. See the logs for exception details.");
-      }
+      Retry.WaitUntil(TestContext.Progress).Execute(() => actualResponse != null);
 
       // Assert
-      textWriter.WriteLine("Workflow completed and managers response to approve is - {0}", response.Approved.ToString());
-      response.Approved.Should().BeTrue();
-    }
+      if (ex != null)
+      {
+        TestContext.Progress.WriteLine(ex);
+        throw ex;
+      }
 
+      actualResponse.Should().NotBeNull();
+      TestContext.Progress.WriteLine("Workflow completed and managers response to approve is - {0}", actualResponse.Approved.ToString());
+      actualResponse.Approved.Should().BeTrue();
+    }
 
     // The test must fail, since we are throwing an exc in the workflow
     [Test]
     public void ShouldHandleException()
     {
-      Exception ex = null;
-      TextWriter textWriter = TestContext.Progress;
       AutoResetEvent waitHandle = new AutoResetEvent(false);
       WorkflowApplication wfApp = new WorkflowApplication(
         new ReportProcessing(),
@@ -98,6 +93,7 @@ namespace UnitTests
       {
         waitHandle.Set();
       };
+      Exception ex = null;
       wfApp.OnUnhandledException += args =>
       {
         ex = args.UnhandledException;
@@ -112,11 +108,11 @@ namespace UnitTests
       ManagerResponse nullData = null;
       wfApp.ResumeBookmark("SubmitResponse", nullData);
 
-      Retry.WaitUntil(textWriter).Execute(() => ex != null);
+      Retry.WaitUntil(TestContext.Progress).Execute(() => ex != null);
 
       if (ex != null)
       {
-        textWriter.WriteLine(ex);
+        TestContext.Progress.WriteLine(ex);
         throw ex;
       }
       Assert.Fail("Exception should have been thrown");

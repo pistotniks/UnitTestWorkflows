@@ -18,8 +18,6 @@ namespace UnitTests
     [Test]
     public void ResumeButFailWithAWrongWorkflow()
     {
-      Exception ex = null;
-      TextWriter textWriter = TestContext.Progress;
       AutoResetEvent waitHandle = new AutoResetEvent(false);
       WorkflowApplication wfApp = new WorkflowApplication(
         new ReportProcessingWithDisapproval(),
@@ -45,6 +43,7 @@ namespace UnitTests
       {
         waitHandle.Set();
       };
+      Exception ex = null;
       wfApp.OnUnhandledException += arg =>
       {
         ex = arg.UnhandledException;
@@ -57,15 +56,14 @@ namespace UnitTests
 
       // Simulating the wrong code since the ReportProcessingWithDisapproval is not implemented correctly
       var managerResponse = new Manager {Approved = true};
-
       wfApp.ResumeBookmark("SubmitResponse", managerResponse);
 
-      Retry.WaitUntil(textWriter).Execute(() => response != null);
+      Retry.WaitUntil(TestContext.Progress).Execute(() => response != null);
 
       // Assert
       if (ex != null)
       {
-        textWriter.WriteLine(ex);
+        TestContext.Progress.WriteLine(ex);
         throw ex;
       }
 
