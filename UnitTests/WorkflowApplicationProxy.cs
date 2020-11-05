@@ -2,6 +2,7 @@
 using System.Activities;
 using System.Collections.Generic;
 using System.Threading;
+using NUnit.Framework;
 
 namespace UnitTests
 {
@@ -50,5 +51,14 @@ namespace UnitTests
     public Exception Ex => mEx;
 
     public IDictionary<string, object> ActualOutputs => mActualOutputs;
+
+    public void VerifyAnError()
+    {
+      if (Ex != null)
+      {
+        TestContext.Progress.WriteLine(Ex);
+        throw Ex;
+      }
+    }
   }
 }

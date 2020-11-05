@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExpenseReportBuilder.cs" />
     <Compile Include="ReportProcessingWithDisapprovalWorkflowTests.cs" />
     <Compile Include="ReportProcessingWorkflowTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
