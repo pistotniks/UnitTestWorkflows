@@ -18,7 +18,6 @@ namespace UnitTests
     [Test]
     public void ResumeButFailWithAWrongWorkflow()
     {
-      bool isWorkflowCompleted = false;
       Exception ex = null;
       TextWriter textWriter = TestContext.Progress;
       AutoResetEvent waitHandle = new AutoResetEvent(false);
@@ -40,7 +39,6 @@ namespace UnitTests
       wfApp.Completed += (wce) =>
       {
         response = (Manager)wce.Outputs["managerResponse"];
-        isWorkflowCompleted = true;
         waitHandle.Set();
       };
       wfApp.Idle += (wce) =>
@@ -57,16 +55,12 @@ namespace UnitTests
       wfApp.Run();
       waitHandle.WaitOne();
 
-      var managerResponse = new Manager();
-      managerResponse.Approved = true; // Simulating the wrong code since the ReportProcessingWithDisapproval is not implemented correctly
+      // Simulating the wrong code since the ReportProcessingWithDisapproval is not implemented correctly
+      var managerResponse = new Manager {Approved = true};
+
       wfApp.ResumeBookmark("SubmitResponse", managerResponse);
 
-      Retry.WaitUntil(textWriter).Execute(() => isWorkflowCompleted);
-      if (!isWorkflowCompleted)
-      {
-        // if the workflow is not completed after retrying, then the assertion failed many times and we fail the test
-        Assert.Fail("Workflow failed due to assertion failing. See the logs for exception details.");
-      }
+      Retry.WaitUntil(textWriter).Execute(() => response != null);
 
       // Assert
       if (ex != null)
@@ -74,6 +68,8 @@ namespace UnitTests
         textWriter.WriteLine(ex);
         throw ex;
       }
+
+      response.Should().NotBeNull();
       response.Approved.Should().BeTrue();
     }
   }
