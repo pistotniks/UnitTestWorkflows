@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using ExpenseReporting;
 using System.Activities;
 using System.Activities.Statements;
+using CustomActivities;
 
 namespace EmployeeExpensesApplication
 {
@@ -48,11 +49,23 @@ namespace EmployeeExpensesApplication
         {
           {"report", model.Report}
         });
-
+      wfApp.Extensions.Add(new EmployeeRepositoryExtension(new EmployeeRepositoryRepository()));
       wfApp.Completed += (wce) =>
       {
         var response = (ManagerResponse) wce.Outputs["managerResponse"];
-        MessageBox.Show("Workflow completed - " + response.Approved.ToString());
+        if (response == null)
+        {
+          MessageBox.Show("Workflow completed. Well, employee is not employed and no approval is needed.");
+          this.Dispatcher.Invoke(() =>
+          {
+            ApprovalSubmit.IsEnabled = false;
+          });
+          
+        }
+        else
+        {
+          MessageBox.Show("Workflow completed - " + response.Approved.ToString());
+        }
       };
       wfApp.Idle += (wie) => { MessageBox.Show("Workflow idle"); };
     }

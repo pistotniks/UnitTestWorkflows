@@ -33,7 +33,7 @@
         <Label Content="Approved" Grid.Column="2" Grid.Row="4"  Height="28" HorizontalAlignment="Right" Margin="0,4,5,4"  VerticalAlignment="Center" Width="62" />
         <CheckBox Grid.Column="3" Grid.Row="4" IsChecked="{Binding Response.Approved, Mode=TwoWay}" Margin="10" />
 
-        <Button Content="Submit Approval" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="50,5,40,5" Click="Approval_Click" />
+        <Button Name="ApprovalSubmit" Content="Submit Approval" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="50,5,40,5" Click="Approval_Click" />
 
     </Grid>
 </Window>

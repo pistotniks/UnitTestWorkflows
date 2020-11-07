@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Activities;
+using System.Activities.Hosting;
 using System.Collections.Generic;
 using System.Threading;
 using NUnit.Framework;
@@ -13,11 +14,12 @@ namespace UnitTests
     private AutoResetEvent mWaitHandle;
     private IDictionary<string, object> mActualOutputs;
 
-    public WorkflowApplicationProxy(Activity activity, Dictionary<string, object> data)
+    public WorkflowApplicationProxy(Activity activity, Dictionary<string, object> data, IList<IWorkflowInstanceExtension> extensions)
     {
       mWaitHandle = new AutoResetEvent(false);
 
       mApplication = new WorkflowApplication(activity, data);
+
       mApplication.Completed += (wce) =>
       {
         mActualOutputs = wce.Outputs;
@@ -33,6 +35,11 @@ namespace UnitTests
         mWaitHandle.Set();
         return UnhandledExceptionAction.Abort;
       };
+
+      foreach (IWorkflowInstanceExtension extension in extensions)
+      {
+        mApplication.Extensions.Add(extension);
+      }
     }
 
     public void Run()

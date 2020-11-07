@@ -1,6 +1,8 @@
-﻿using EmployeeExpensesApplication;
+﻿using CustomActivities;
+using EmployeeExpensesApplication;
 using ExpenseReporting;
 using FluentAssertions;
+using Moq;
 using NUnit.Framework;
 
 namespace UnitTests
@@ -12,9 +14,12 @@ namespace UnitTests
     [Test]
     public void ApproveAndResume()
     {
+      var employeeRepositoryExtension = new Mock<ICanGetEmployeeFacts>();
+      employeeRepositoryExtension.Setup(facts => facts.IsEmployeeStillEmployed(It.IsAny<string>())).Returns(true);
       WorkflowApplicationProxy application = new WorkflowApplicationBuilder()
         .ForWorkflow(new ReportProcessing())
         .WithData("report", new ExpenseReportBuilder().DefaultData().Build())
+        .WithCollaborator(employeeRepositoryExtension.Object)
         .Build();
 
       application.Run();
@@ -38,9 +43,12 @@ namespace UnitTests
     [Test]
     public void ShouldHandleException()
     {
+      var employeeRepositoryExtension = new Mock<ICanGetEmployeeFacts>();
+      employeeRepositoryExtension.Setup(facts => facts.IsEmployeeStillEmployed(It.IsAny<string>())).Returns(true);
       WorkflowApplicationProxy application = new WorkflowApplicationBuilder()
         .ForWorkflow(new ReportProcessing())
         .WithData("report", new ExpenseReportBuilder().DefaultData().Build())
+        .WithCollaborator(employeeRepositoryExtension.Object)
         .Build();
 
       application.Run();

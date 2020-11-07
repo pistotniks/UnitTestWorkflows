@@ -1,16 +1,85 @@
-﻿<Activity mc:Ignorable="sap" x:Class="EmployeeExpensesApplication.ReportProcessing" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:c="clr-namespace:CustomActivities;assembly=CustomActivities" xmlns:local="clr-namespace:ExpenseReporting" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=System" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:s1="clr-namespace:System;assembly=System" xmlns:s2="clr-namespace:System;assembly=System.Xml" xmlns:s3="clr-namespace:System;assembly=System.Core" xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities" xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System" xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=System.ServiceModel" xmlns:scg2="clr-namespace:System.Collections.Generic;assembly=System.Core" xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:sl="clr-namespace:System.Linq;assembly=System.Core" xmlns:st="clr-namespace:System.Text;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="EmployeeExpensesApplication.ReportProcessing"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:c="clr-namespace:CustomActivities;assembly=CustomActivities"
+ xmlns:local="clr-namespace:ExpenseReporting"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="report" Type="InArgument(local:ExpenseReport)" />
     <x:Property Name="managerResponse" Type="OutArgument(local:ManagerResponse)" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>262,240</sap:VirtualizedContainerService.HintSize>
-  <mva:VisualBasic.Settings>Assembly references and imported namespaces for internal implementation</mva:VisualBasic.Settings>
-  <Sequence sad:XamlDebuggerXmlReader.FileName="D:\Demos\NativeActivities\EmployeeExpensesApplication\ReportProcessing.xaml" sap:VirtualizedContainerService.HintSize="222,200">
-    <sap:WorkflowViewStateService.ViewState>
-      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
-        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-      </scg3:Dictionary>
-    </sap:WorkflowViewStateService.ViewState>
-    <c:WaitForData x:TypeArguments="local:ManagerResponse" BookmarkName="SubmitResponse" sap:VirtualizedContainerService.HintSize="200,22" Result="[managerResponse]" />
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>EmployeeExpensesApplication.ReportProcessing_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>CustomActivities</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities.Debugger</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Text</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>ExpenseReporting</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>CustomActivities</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>EmployeeExpensesApplication</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:Boolean" Name="isStillEmployed" />
+    </Sequence.Variables>
+    <c:EmployeeCheckActivity sap2010:WorkflowViewState.IdRef="EmployeeCheckActivity_1" PersonName="[report.Employee.Name]" Result="[isStillEmployed]" />
+    <If Condition="[isStillEmployed]" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Then>
+        <c:WaitForData x:TypeArguments="local:ManagerResponse" BookmarkName="SubmitResponse" sap2010:WorkflowViewState.IdRef="WaitForData`1_1" Result="[managerResponse]" />
+      </If.Then>
+    </If>
+    <sads:DebugSymbol.Symbol>d0pDOlxnaXRcVW5pdFRlc3RXb3JrZmxvd3NcRW1wbG95ZWVFeHBlbnNlc0FwcGxpY2F0aW9uXFJlcG9ydFByb2Nlc3NpbmcueGFtbAk6A0UOAgEBPgU+mQECAQk/BUMKAgECPmM+ewIBDD6DAT6WAQIBCj8TPyYCAQNBCUGtAQIBBUFNQV0CAQhBlwFBqgECAQY=</sads:DebugSymbol.Symbol>
   </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="EmployeeCheckActivity_1" sap:VirtualizedContainerService.HintSize="464,22" />
+      <sap2010:ViewStateData Id="WaitForData`1_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,214" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="486,400">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="EmployeeExpensesApplication.ReportProcessing_1" sap:VirtualizedContainerService.HintSize="526,480" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
