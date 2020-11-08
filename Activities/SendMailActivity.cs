@@ -2,7 +2,7 @@
 using System.Activities;
 using System.Net.Mail;
 
-namespace CustomActivities
+namespace Activities
 {
   public class SendMailActivity : CodeActivity<SmtpStatusCode>
   {

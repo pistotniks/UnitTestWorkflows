@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Activities;
 
-namespace CustomActivities
+namespace Activities
 {
-  public sealed class WaitForData<T> : NativeActivity<T>
+  public sealed class WaitForManagerWithNotApproving<T> : NativeActivity<T>
   {
     [RequiredArgument] public InArgument<string> BookmarkName { get; set; }
 
-    protected override bool CanInduceIdle => true;
+    protected override bool CanInduceIdle
+    {
+      get { return true; }
+    }
 
     protected override void Execute(NativeActivityContext context)
     {
@@ -23,7 +26,11 @@ namespace CustomActivities
       {
         throw new ApplicationException("Foo");
       }
-      
+
+      Manager manager = data as Manager;
+      // Simulation of the wrong code (setting the approved to false), so the test must fail
+      manager.Approved = false;
+
       Result.Set(context, data);
     }
   }

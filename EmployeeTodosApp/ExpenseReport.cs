@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace ExpenseReporting
+namespace EmployeeTodosApp
 {
   [DataContract]
   public class ExpenseReport

@@ -1,5 +1,5 @@
-﻿using CustomActivities;
-using EmployeeExpensesApplication;
+﻿using Activities;
+using EmployeeTodosApp;
 using FluentAssertions;
 using NUnit.Framework;
 

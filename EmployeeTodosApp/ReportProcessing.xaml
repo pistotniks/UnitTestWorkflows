@@ -1,7 +1,6 @@
-﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="EmployeeExpensesApplication.ReportProcessing"
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="EmployeeTodosApp.ReportProcessing"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
- xmlns:c="clr-namespace:CustomActivities;assembly=CustomActivities"
- xmlns:local="clr-namespace:ExpenseReporting"
+ xmlns:c="clr-namespace:Activities;assembly=Activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
  xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
@@ -9,10 +8,11 @@
  xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
  xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
  xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
- xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:employeeTodosApp="clr-namespace:EmployeeTodosApp">
   <x:Members>
-    <x:Property Name="report" Type="InArgument(local:ExpenseReport)" />
-    <x:Property Name="managerResponse" Type="OutArgument(local:ManagerResponse)" />
+    <x:Property Name="report" Type="InArgument(employeeTodosApp:ExpenseReport)" />
+    <x:Property Name="managerResponse" Type="OutArgument(employeeTodosApp:ManagerResponse)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -25,7 +25,7 @@
       <x:String>System.Activities.Expressions</x:String>
       <x:String>System.Activities.Validation</x:String>
       <x:String>System.Activities.XamlIntegration</x:String>
-      <x:String>CustomActivities</x:String>
+      <x:String>Activities</x:String>
       <x:String>Microsoft.VisualBasic</x:String>
       <x:String>Microsoft.VisualBasic.Activities</x:String>
       <x:String>System</x:String>
@@ -41,7 +41,7 @@
   <TextExpression.ReferencesForImplementation>
     <sco:Collection x:TypeArguments="AssemblyReference">
       <AssemblyReference>System.Activities</AssemblyReference>
-      <AssemblyReference>CustomActivities</AssemblyReference>
+      <AssemblyReference>Activities</AssemblyReference>
       <AssemblyReference>System</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
       <AssemblyReference>System.Xml</AssemblyReference>
@@ -52,7 +52,7 @@
       <AssemblyReference>WindowsBase</AssemblyReference>
       <AssemblyReference>PresentationCore</AssemblyReference>
       <AssemblyReference>System.Xaml</AssemblyReference>
-      <AssemblyReference>EmployeeExpensesApplication</AssemblyReference>
+      <AssemblyReference>EmployeeTodosApp</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -62,7 +62,7 @@
     <c:EmployeeCheckActivity sap2010:WorkflowViewState.IdRef="EmployeeCheckActivity_1" PersonName="[report.Employee.Name]" Result="[isStillEmployed]" />
     <If Condition="[isStillEmployed]" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Then>
-        <c:WaitForData x:TypeArguments="local:ManagerResponse" BookmarkName="SubmitResponse" sap2010:WorkflowViewState.IdRef="WaitForData`1_1" Result="[managerResponse]" />
+        <c:WaitForData x:TypeArguments="employeeTodosApp:ManagerResponse" BookmarkName="SubmitResponse" sap2010:WorkflowViewState.IdRef="WaitForData`1_1" Result="[managerResponse]" />
       </If.Then>
     </If>
     <sads:DebugSymbol.Symbol>d0pDOlxnaXRcVW5pdFRlc3RXb3JrZmxvd3NcRW1wbG95ZWVFeHBlbnNlc0FwcGxpY2F0aW9uXFJlcG9ydFByb2Nlc3NpbmcueGFtbAk6A0UOAgEBPgU+mQECAQk/BUMKAgECPmM+ewIBDD6DAT6WAQIBCj8TPyYCAQNBCUGtAQIBBUFNQV0CAQhBlwFBqgECAQY=</sads:DebugSymbol.Symbol>
@@ -79,7 +79,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="EmployeeExpensesApplication.ReportProcessing_1" sap:VirtualizedContainerService.HintSize="526,480" />
+      <sap2010:ViewStateData Id="EmployeeTodosApp.ReportProcessing_1" sap:VirtualizedContainerService.HintSize="526,480" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

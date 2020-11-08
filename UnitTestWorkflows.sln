@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomActivities", "CustomActivities\CustomActivities.csproj", "{833CB6FB-FEC2-4B29-B5E9-1913156AEADD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Activities", "Activities\Activities.csproj", "{833CB6FB-FEC2-4B29-B5E9-1913156AEADD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeExpensesApplication", "EmployeeExpensesApplication\EmployeeExpensesApplication.csproj", "{8BA5E915-3700-4D69-B975-4C97D9FA8532}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeTodosApp", "EmployeeTodosApp\EmployeeTodosApp.csproj", "{8BA5E915-3700-4D69-B975-4C97D9FA8532}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{EBA34D5C-976A-4342-B5FE-1DF424D573C6}"
 EndProject

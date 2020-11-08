@@ -1,4 +1,4 @@
-﻿namespace CustomActivities
+﻿namespace Activities
 {
   public interface IEmployeeRepositoryRepository
   {

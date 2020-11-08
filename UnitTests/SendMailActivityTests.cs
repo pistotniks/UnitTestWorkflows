@@ -2,7 +2,7 @@
 using System.Activities;
 using System.Collections.Generic;
 using System.Net.Mail;
-using CustomActivities;
+using Activities;
 using FluentAssertions;
 using NUnit.Framework;
 

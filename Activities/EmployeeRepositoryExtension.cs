@@ -1,7 +1,7 @@
 ﻿using System.Activities.Hosting;
 using System.Collections.Generic;
 
-namespace CustomActivities
+namespace Activities
 {
   public sealed class EmployeeRepositoryExtension : ICanGetEmployeeFacts
   {

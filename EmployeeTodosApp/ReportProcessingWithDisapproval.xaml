@@ -1,0 +1,25 @@
+﻿<Activity mc:Ignorable="sap" x:Class="EmployeeTodosApp.ReportProcessingWithDisapproval" 
+          xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" 
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+          xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" 
+          xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities" 
+          xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" 
+          xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=mscorlib" 
+          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          xmlns:activities="clr-namespace:Activities;assembly=Activities"
+          xmlns:employeeTodosApp="clr-namespace:EmployeeTodosApp">
+  <x:Members>
+    <x:Property Name="report" Type="InArgument(employeeTodosApp:ExpenseReport)" />
+    <x:Property Name="managerResponse" Type="OutArgument(activities:Manager)" />
+  </x:Members>
+  <sap:VirtualizedContainerService.HintSize>262,240</sap:VirtualizedContainerService.HintSize>
+  <mva:VisualBasic.Settings>Assembly references and imported namespaces for internal implementation</mva:VisualBasic.Settings>
+  <Sequence sad:XamlDebuggerXmlReader.FileName="D:\Demos\NativeActivities\EmployeeExpensesApplication\ReportProcessingWithDisapproval.xaml" sap:VirtualizedContainerService.HintSize="222,200">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg3:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+	  <activities:WaitForManagerWithNotApproving x:TypeArguments="activities:Manager" BookmarkName="SubmitResponse" sap:VirtualizedContainerService.HintSize="200,22" Result="[managerResponse]" />
+  </Sequence>
+</Activity>

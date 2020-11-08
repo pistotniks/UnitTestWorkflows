@@ -86,13 +86,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CustomActivities\CustomActivities.csproj">
+    <ProjectReference Include="..\Activities\Activities.csproj">
       <Project>{833cb6fb-fec2-4b29-b5e9-1913156aeadd}</Project>
-      <Name>CustomActivities</Name>
+      <Name>Activities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EmployeeExpensesApplication\EmployeeExpensesApplication.csproj">
+    <ProjectReference Include="..\EmployeeTodosApp\EmployeeTodosApp.csproj">
       <Project>{8BA5E915-3700-4D69-B975-4C97D9FA8532}</Project>
-      <Name>EmployeeExpensesApplication</Name>
+      <Name>EmployeeTodosApp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,8 +8,8 @@
     <ProjectGuid>{8BA5E915-3700-4D69-B975-4C97D9FA8532}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EmployeeExpensesApplication</RootNamespace>
-    <AssemblyName>EmployeeExpensesApplication</AssemblyName>
+    <RootNamespace>EmployeeTodosApp</RootNamespace>
+    <AssemblyName>EmployeeTodosApp</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -127,12 +127,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CustomActivities\CustomActivities.csproj">
-      <Project>{833CB6FB-FEC2-4B29-B5E9-1913156AEADD}</Project>
-      <Name>CustomActivities</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
@@ -143,6 +137,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Activities\Activities.csproj">
+      <Project>{833cb6fb-fec2-4b29-b5e9-1913156aeadd}</Project>
+      <Name>Activities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

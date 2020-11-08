@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Activities;
 
-namespace CustomActivities
+namespace Activities
 {
   public class EmployeeCheckActivity : CodeActivity<bool>
   {

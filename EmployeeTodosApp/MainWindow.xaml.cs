@@ -11,12 +11,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ExpenseReporting;
 using System.Activities;
 using System.Activities.Statements;
-using CustomActivities;
+using Activities;
 
-namespace EmployeeExpensesApplication
+namespace EmployeeTodosApp
 {
   /// <summary>
   /// Interaction logic for MainWindow.xaml

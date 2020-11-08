@@ -1,6 +1,6 @@
-﻿using CustomActivities;
+﻿using Activities;
 using EmployeeExpensesApplication;
-using ExpenseReporting;
+using EmployeeTodosApp;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
