@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Activities.Data;
 using Activities.Repositories;
 
-namespace Activities.Extensions
+namespace Activities.WorkflowExtensions
 {
   public sealed class EmployeeRepositoryExtension : ICanGetEmployeeFacts
   {

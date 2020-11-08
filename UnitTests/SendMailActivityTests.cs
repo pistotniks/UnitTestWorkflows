@@ -17,7 +17,7 @@ namespace UnitTests
       Exception ex = null;
 
       Dictionary<string, object> wfParams = new Dictionary<string, object>();
-      wfParams.Add("To", "mmnet30@microsoft.com");
+      wfParams.Add("To", "sepi@simcorp.com");
       wfParams.Add("From", "donotreply@example.org");
       wfParams.Add("Subject", "Unit testing");
 

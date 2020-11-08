@@ -3,6 +3,8 @@ using Activities.Data;
 using EmployeeTodosApp;
 using FluentAssertions;
 using NUnit.Framework;
+using UnitTests.Builders;
+using UnitTests.Core;
 using ReportProcessingWithDisapproval = EmployeeTodosApp.Workflows.ReportProcessingWithDisapproval;
 
 namespace UnitTests
@@ -16,7 +18,7 @@ namespace UnitTests
     {
       WorkflowApplicationProxy application = new WorkflowApplicationBuilder()
         .ForWorkflow(new ReportProcessingWithDisapproval())
-        .WithData("report", new ExpenseReportBuilder().DefaultData().Build())
+        .WithData("report", new EmployeeTodoBuilder().DefaultData().Build())
         .Build();
 
       application.Run();

@@ -72,14 +72,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExpenseReportBuilder.cs" />
+    <Compile Include="Builders\EmployeeTodoBuilder.cs" />
     <Compile Include="ReportProcessingWithDisapprovalWorkflowTests.cs" />
     <Compile Include="ReportProcessingWorkflowTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Retry.cs" />
+    <Compile Include="Core\Retry.cs" />
     <Compile Include="SendMailActivityTests.cs" />
-    <Compile Include="WorkflowApplicationBuilder.cs" />
-    <Compile Include="WorkflowApplicationProxy.cs" />
+    <Compile Include="Builders\WorkflowApplicationBuilder.cs" />
+    <Compile Include="Builders\WorkflowApplicationProxy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -95,6 +95,7 @@
       <Name>EmployeeTodosApp</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

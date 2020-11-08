@@ -5,7 +5,7 @@ using System.Linq;
 using Polly;
 using Polly.Retry;
 
-namespace UnitTests
+namespace UnitTests.Core
 {
   public class Retry
   {

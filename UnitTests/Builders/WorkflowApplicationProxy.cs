@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using NUnit.Framework;
 
-namespace UnitTests
+namespace UnitTests.Builders
 {
   public class WorkflowApplicationProxy
   {

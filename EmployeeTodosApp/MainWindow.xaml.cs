@@ -14,8 +14,8 @@ using System.Windows.Shapes;
 using System.Activities;
 using System.Activities.Statements;
 using Activities;
-using Activities.Extensions;
 using Activities.Repositories;
+using Activities.WorkflowExtensions;
 using EmployeeTodosApp.ViewModel;
 
 namespace EmployeeTodosApp

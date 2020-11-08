@@ -2,7 +2,7 @@
 using System.Activities.Hosting;
 using System.Collections.Generic;
 
-namespace UnitTests
+namespace UnitTests.Builders
 {
   public class WorkflowApplicationBuilder
   {

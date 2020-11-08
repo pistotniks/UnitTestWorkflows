@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Activities;
-using Activities.Extensions;
+using Activities.WorkflowExtensions;
 
 namespace Activities
 {

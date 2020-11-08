@@ -1,10 +1,12 @@
 ﻿using Activities;
-using Activities.Extensions;
+using Activities.WorkflowExtensions;
 using EmployeeTodosApp;
 using EmployeeTodosApp.ViewModel;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using UnitTests.Builders;
+using UnitTests.Core;
 using ReportProcessing = EmployeeTodosApp.Workflows.ReportProcessing;
 
 namespace UnitTests
@@ -20,7 +22,7 @@ namespace UnitTests
       employeeRepositoryExtension.Setup(facts => facts.IsEmployeeStillEmployed(It.IsAny<string>())).Returns(true);
       WorkflowApplicationProxy application = new WorkflowApplicationBuilder()
         .ForWorkflow(new ReportProcessing())
-        .WithData("report", new ExpenseReportBuilder().DefaultData().Build())
+        .WithData("report", new EmployeeTodoBuilder().DefaultData().Build())
         .WithCollaborator(employeeRepositoryExtension.Object)
         .Build();
 
@@ -49,7 +51,7 @@ namespace UnitTests
       employeeRepositoryExtension.Setup(facts => facts.IsEmployeeStillEmployed(It.IsAny<string>())).Returns(true);
       WorkflowApplicationProxy application = new WorkflowApplicationBuilder()
         .ForWorkflow(new ReportProcessing())
-        .WithData("report", new ExpenseReportBuilder().DefaultData().Build())
+        .WithData("report", new EmployeeTodoBuilder().DefaultData().Build())
         .WithCollaborator(employeeRepositoryExtension.Object)
         .Build();
 

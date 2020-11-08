@@ -47,9 +47,9 @@
   <ItemGroup>
     <Compile Include="Data\Employee.cs" />
     <Compile Include="EmployeeCheckActivity.cs" />
-    <Compile Include="Extensions\EmployeeRepositoryExtension.cs" />
+    <Compile Include="WorkflowExtensions\EmployeeRepositoryExtension.cs" />
     <Compile Include="Repositories\EmployeeRepositoryRepository.cs" />
-    <Compile Include="Extensions\ICanGetEmployeeFacts.cs" />
+    <Compile Include="WorkflowExtensions\ICanGetEmployeeFacts.cs" />
     <Compile Include="Repositories\IEmployeeRepositoryRepository.cs" />
     <Compile Include="Data\Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

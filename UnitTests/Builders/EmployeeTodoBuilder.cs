@@ -1,14 +1,13 @@
 ﻿using System;
-using EmployeeTodosApp;
 using EmployeeTodosApp.ViewModel;
 
-namespace UnitTests
+namespace UnitTests.Builders
 {
-  public class ExpenseReportBuilder
+  public class EmployeeTodoBuilder
   {
     private EmployeeTodo mDefaultData;
 
-    public ExpenseReportBuilder DefaultData()
+    public EmployeeTodoBuilder DefaultData()
     {
       mDefaultData = new EmployeeTodo
       {
