@@ -1,8 +1,11 @@
 ﻿using Activities;
+using Activities.Extensions;
 using EmployeeTodosApp;
+using EmployeeTodosApp.ViewModel;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using ReportProcessing = EmployeeTodosApp.Workflows.ReportProcessing;
 
 namespace UnitTests
 {

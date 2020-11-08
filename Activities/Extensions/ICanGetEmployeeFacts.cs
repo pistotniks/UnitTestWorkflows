@@ -1,6 +1,6 @@
 ﻿using System.Activities.Hosting;
 
-namespace Activities
+namespace Activities.Extensions
 {
   public interface ICanGetEmployeeFacts : IWorkflowInstanceExtension
   {

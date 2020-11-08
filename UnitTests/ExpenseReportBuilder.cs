@@ -1,5 +1,6 @@
 ﻿using System;
 using EmployeeTodosApp;
+using EmployeeTodosApp.ViewModel;
 
 namespace UnitTests
 {

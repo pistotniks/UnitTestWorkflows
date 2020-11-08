@@ -1,4 +1,6 @@
-﻿namespace Activities
+﻿using Activities.Data;
+
+namespace Activities.Repositories
 {
   public class EmployeeRepositoryRepository : IEmployeeRepositoryRepository
   {

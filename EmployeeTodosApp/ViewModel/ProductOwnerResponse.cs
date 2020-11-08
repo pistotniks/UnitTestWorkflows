@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace EmployeeTodosApp
+namespace EmployeeTodosApp.ViewModel
 {
   [DataContract]
   public class ProductOwnerResponse

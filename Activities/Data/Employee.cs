@@ -1,4 +1,4 @@
-﻿namespace Activities
+﻿namespace Activities.Data
 {
   public class Employee
   {

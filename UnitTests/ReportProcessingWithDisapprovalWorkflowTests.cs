@@ -1,7 +1,9 @@
 ﻿using Activities;
+using Activities.Data;
 using EmployeeTodosApp;
 using FluentAssertions;
 using NUnit.Framework;
+using ReportProcessingWithDisapproval = EmployeeTodosApp.Workflows.ReportProcessingWithDisapproval;
 
 namespace UnitTests
 {

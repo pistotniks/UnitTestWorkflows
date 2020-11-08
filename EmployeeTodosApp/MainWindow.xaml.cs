@@ -14,6 +14,9 @@ using System.Windows.Shapes;
 using System.Activities;
 using System.Activities.Statements;
 using Activities;
+using Activities.Extensions;
+using Activities.Repositories;
+using EmployeeTodosApp.ViewModel;
 
 namespace EmployeeTodosApp
 {
@@ -42,7 +45,7 @@ namespace EmployeeTodosApp
       DataContext = model;
 
       workflowApplication = new WorkflowApplication(
-        new ReportProcessing(),
+        new Workflows.ReportProcessing(),
         new Dictionary<string, object>
         {
           {"report", model.TodoTask}

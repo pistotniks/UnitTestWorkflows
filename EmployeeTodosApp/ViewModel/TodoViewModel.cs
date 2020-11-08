@@ -1,4 +1,4 @@
-﻿namespace EmployeeTodosApp
+﻿namespace EmployeeTodosApp.ViewModel
 {
   public class TodoViewModel
   {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Activities;
+using Activities.Extensions;
 
 namespace Activities
 {

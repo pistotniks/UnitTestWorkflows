@@ -84,24 +84,24 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="EmployeeTodo.cs" />
-    <Compile Include="TodoViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeTodo.cs" />
+    <Compile Include="ViewModel\TodoViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <XamlAppDef Include="ReportProcessingWithDisapproval.xaml">
+    <XamlAppDef Include="Workflows\ReportProcessingWithDisapproval.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </XamlAppDef>
-    <XamlAppDef Include="ReportProcessing.xaml">
+    <XamlAppDef Include="Workflows\ReportProcessing.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </XamlAppDef>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProductOwnerResponse.cs" />
-    <Compile Include="Person.cs" />
+    <Compile Include="ViewModel\ProductOwnerResponse.cs" />
+    <Compile Include="ViewModel\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -144,6 +144,7 @@
       <Name>Activities</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
