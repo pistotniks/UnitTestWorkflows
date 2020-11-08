@@ -9,7 +9,7 @@
           xmlns:activities="clr-namespace:Activities;assembly=Activities"
           xmlns:employeeTodosApp="clr-namespace:EmployeeTodosApp">
   <x:Members>
-    <x:Property Name="report" Type="InArgument(employeeTodosApp:ExpenseReport)" />
+    <x:Property Name="report" Type="InArgument(employeeTodosApp:EmployeeTodo)" />
     <x:Property Name="managerResponse" Type="OutArgument(activities:Manager)" />
   </x:Members>
   <sap:VirtualizedContainerService.HintSize>262,240</sap:VirtualizedContainerService.HintSize>

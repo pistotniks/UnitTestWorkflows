@@ -22,39 +22,40 @@ namespace EmployeeTodosApp
   /// </summary>
   public partial class MainWindow : Window
   {
-    ExpenseReportViewModel model;
-    WorkflowApplication wfApp;
+    TodoViewModel model;
+    WorkflowApplication workflowApplication;
 
     public MainWindow()
     {
       InitializeComponent();
-      model = new ExpenseReportViewModel
+      model = new TodoViewModel
       {
-        Report = new ExpenseReport
+        TodoTask = new EmployeeTodo
         {
           Employee = new Person(),
           StartDate = DateTime.Now,
-          EndDate = DateTime.Now
         },
-        Response = new ManagerResponse()
+        Response = new ProductOwnerResponse()
       };
 
 
       DataContext = model;
 
-      wfApp = new WorkflowApplication(
+      workflowApplication = new WorkflowApplication(
         new ReportProcessing(),
         new Dictionary<string, object>
         {
-          {"report", model.Report}
+          {"report", model.TodoTask}
         });
-      wfApp.Extensions.Add(new EmployeeRepositoryExtension(new EmployeeRepositoryRepository()));
-      wfApp.Completed += (wce) =>
+
+      workflowApplication.Extensions.Add(new EmployeeRepositoryExtension(new EmployeeRepositoryRepository()));
+      
+      workflowApplication.Completed += (wce) =>
       {
-        var response = (ManagerResponse) wce.Outputs["managerResponse"];
+        var response = (ProductOwnerResponse) wce.Outputs["managerResponse"];
         if (response == null)
         {
-          MessageBox.Show("Workflow completed. Well, employee is not employed and no approval is needed.");
+          MessageBox.Show("Workflow completed. Employee is not employed anymore and no approval for the TODO is needed.");
           this.Dispatcher.Invoke(() =>
           {
             ApprovalSubmit.IsEnabled = false;
@@ -63,21 +64,21 @@ namespace EmployeeTodosApp
         }
         else
         {
-          MessageBox.Show("Workflow completed - " + response.Approved.ToString());
+          MessageBox.Show($"Workflow completed - Product Owner {(response.Approved ? "Approved" : "did not Approved")} the Employee's TODO.");
         }
       };
-      wfApp.Idle += (wie) => { MessageBox.Show("Workflow idle"); };
+      workflowApplication.Idle += (wie) => { MessageBox.Show("Workflow idle. Waiting for Product Owner's approval of a Employee's TODO Task."); };
     }
 
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-      wfApp.Run();
+      workflowApplication.Run();
     }
 
     private void Approval_Click(object sender, RoutedEventArgs e)
     {
-      wfApp.ResumeBookmark(
+      workflowApplication.ResumeBookmark(
         "SubmitResponse", model.Response);
     }
   }

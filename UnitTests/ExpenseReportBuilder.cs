@@ -5,20 +5,19 @@ namespace UnitTests
 {
   public class ExpenseReportBuilder
   {
-    private ExpenseReport mDefaultData;
+    private EmployeeTodo mDefaultData;
 
     public ExpenseReportBuilder DefaultData()
     {
-      mDefaultData = new ExpenseReport
+      mDefaultData = new EmployeeTodo
       {
         Employee = new Person(),
         StartDate = DateTime.Now,
-        EndDate = DateTime.Now
       };
       return this;
     }
 
-    public ExpenseReport Build()
+    public EmployeeTodo Build()
     {
       return mDefaultData;
     }

@@ -84,8 +84,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ExpenseReport.cs" />
-    <Compile Include="ExpenseReportViewModel.cs" />
+    <Compile Include="EmployeeTodo.cs" />
+    <Compile Include="TodoViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -100,7 +100,7 @@
     </XamlAppDef>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ManagerResponse.cs" />
+    <Compile Include="ProductOwnerResponse.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

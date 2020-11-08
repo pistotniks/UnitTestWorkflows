@@ -1,5 +1,4 @@
 ﻿using Activities;
-using EmployeeExpensesApplication;
 using EmployeeTodosApp;
 using FluentAssertions;
 using Moq;
@@ -24,11 +23,11 @@ namespace UnitTests
 
       application.Run();
 
-      var managerResponse = new ManagerResponse { Approved = true };
+      var managerResponse = new ProductOwnerResponse { Approved = true };
       application.ResumeBookmark("SubmitResponse", managerResponse);
 
       Retry.WaitUntil(TestContext.Progress).Execute(() => application.ActualOutputs != null);
-      ManagerResponse actualResponse = (ManagerResponse)application.ActualOutputs["managerResponse"];
+      ProductOwnerResponse actualResponse = (ProductOwnerResponse)application.ActualOutputs["managerResponse"];
 
       // Assert
       application.VerifyAnError();
@@ -54,7 +53,7 @@ namespace UnitTests
       application.Run();
 
       // Simulating a null response, where the code will throw an exception
-      ManagerResponse nullData = null;
+      ProductOwnerResponse nullData = null;
       application.ResumeBookmark("SubmitResponse", nullData);
 
       Retry.WaitUntil(TestContext.Progress).Execute(() => application.Ex != null);

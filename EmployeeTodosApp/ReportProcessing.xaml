@@ -11,8 +11,8 @@
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
  xmlns:employeeTodosApp="clr-namespace:EmployeeTodosApp">
   <x:Members>
-    <x:Property Name="report" Type="InArgument(employeeTodosApp:ExpenseReport)" />
-    <x:Property Name="managerResponse" Type="OutArgument(employeeTodosApp:ManagerResponse)" />
+    <x:Property Name="report" Type="InArgument(employeeTodosApp:EmployeeTodo)" />
+    <x:Property Name="managerResponse" Type="OutArgument(employeeTodosApp:ProductOwnerResponse)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -62,7 +62,7 @@
     <c:EmployeeCheckActivity sap2010:WorkflowViewState.IdRef="EmployeeCheckActivity_1" PersonName="[report.Employee.Name]" Result="[isStillEmployed]" />
     <If Condition="[isStillEmployed]" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Then>
-        <c:WaitForData x:TypeArguments="employeeTodosApp:ManagerResponse" BookmarkName="SubmitResponse" sap2010:WorkflowViewState.IdRef="WaitForData`1_1" Result="[managerResponse]" />
+        <c:WaitForData x:TypeArguments="employeeTodosApp:ProductOwnerResponse" BookmarkName="SubmitResponse" sap2010:WorkflowViewState.IdRef="WaitForData`1_1" Result="[managerResponse]" />
       </If.Then>
     </If>
     <sads:DebugSymbol.Symbol>d0pDOlxnaXRcVW5pdFRlc3RXb3JrZmxvd3NcRW1wbG95ZWVFeHBlbnNlc0FwcGxpY2F0aW9uXFJlcG9ydFByb2Nlc3NpbmcueGFtbAk6A0UOAgEBPgU+mQECAQk/BUMKAgECPmM+ewIBDD6DAT6WAQIBCj8TPyYCAQNBCUGtAQIBBUFNQV0CAQhBlwFBqgECAQY=</sads:DebugSymbol.Symbol>

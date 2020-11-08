@@ -4,11 +4,10 @@ using System.Runtime.Serialization;
 namespace EmployeeTodosApp
 {
   [DataContract]
-  public class ExpenseReport
+  public class EmployeeTodo
   {
     [DataMember] public Person Employee { get; set; }
-    [DataMember] public double Amount { get; set; }
+    [DataMember] public string Todo { get; set; }
     [DataMember] public DateTime StartDate { get; set; }
-    [DataMember] public DateTime EndDate { get; set; }
   }
 }

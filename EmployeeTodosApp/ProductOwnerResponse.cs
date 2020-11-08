@@ -3,10 +3,10 @@
 namespace EmployeeTodosApp
 {
   [DataContract]
-  public class ManagerResponse
+  public class ProductOwnerResponse
   {
     [DataMember] public bool Approved { get; set; }
 
-    [DataMember] public string ManagerName { get; set; }
+    [DataMember] public string ProductOwnerName { get; set; }
   }
 }
