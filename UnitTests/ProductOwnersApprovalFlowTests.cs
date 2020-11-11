@@ -109,7 +109,87 @@ namespace UnitTests
 
       Assert.Throws<ApplicationException>(() => application.VerifyAnError());
     }
+
+
+    [Test]
+    public void ApproveAndResumeDescriptive()
+    {
+      // Arrange
+      Scenario scenario = new Scenario();
+      scenario.GivenEmployeeIsStillEmployed();
+      scenario.GivenIRunProductOwnersApprovalFlow();
+
+      // Act
+      scenario.WhenIResumeTheWorkflowWithProductOwnerApprovingTheTodo();
+     
+      // Assert
+      scenario.ThenTheOuputShouldBeApproval();
+      scenario.AndNotificationToTeamsShouldNeverHappened();
+
+      scenario.Log();
+    }
+
+    private class Scenario
+    {
+      private readonly Mock<ICanGetEmployeeFacts> mEmployeeRepositoryExtension;
+      private readonly Mock<INotifyOnTeams> mNotification;
+      private WorkflowApplicationProxy mApplication;
+      private ProductOwnerResponse mActualResponse;
+
+      public Scenario()
+      {
+        mEmployeeRepositoryExtension = new Mock<ICanGetEmployeeFacts>();
+        mNotification = new Mock<INotifyOnTeams>();
+      }
+
+      public void GivenEmployeeIsStillEmployed()
+      {
+        // Simulating a big and complex and time consuming change in a database
+        mEmployeeRepositoryExtension.Setup(facts => facts.IsEmployeeStillEmployed(It.IsAny<string>())).Returns(true);
+      }
+
+      public void GivenIRunProductOwnersApprovalFlow()
+      {
+        mApplication = new WorkflowApplicationBuilder()
+          .ForWorkflow(new ProductOwnersApprovalFlow())
+          .WithData("report", new EmployeeTodoBuilder().DefaultData().Build())
+          .WithCollaborator(mEmployeeRepositoryExtension.Object)
+          .WithCollaborator(mNotification.Object)
+          .Build();
+
+        mApplication.Run();
+      }
+
+      public void WhenIResumeTheWorkflowWithProductOwnerApprovingTheTodo()
+      {
+        var productOwnerResponse = new ProductOwnerResponse { Approved = true };
+
+        mApplication.ResumeBookmark("SubmitResponse", productOwnerResponse);
+
+        Retry.WaitUntil(TestContext.Progress).Execute(() => mApplication.ActualOutputs != null);
+        mApplication.VerifyAnError();
+      }
+
+      public void AndNotificationToTeamsShouldNeverHappened()
+      {
+        mNotification.Verify(notifier => notifier.Notify(It.IsAny<string>()), Times.Never);
+      }
+
+      public ProductOwnerResponse GetWorkflowOutput()
+      {
+        return (ProductOwnerResponse)mApplication.ActualOutputs["managerResponse"];
+      }
+
+      public void Log()
+      {
+        TestContext.Progress.WriteLine("Workflow completed and product owner response to approve is - {0}", mActualResponse.Approved.ToString());
+      }
+
+      public void ThenTheOuputShouldBeApproval()
+      {
+        mActualResponse = GetWorkflowOutput();
+        mActualResponse.Approved.Should().BeTrue();
+      }
+    }
   }
-
-
 }
