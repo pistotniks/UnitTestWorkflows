@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Data\Employee.cs" />
     <Compile Include="EmployeeCheckActivity.cs" />
+    <Compile Include="NotifyActivity.cs" />
     <Compile Include="WorkflowExtensions\EmployeeRepositoryExtension.cs" />
     <Compile Include="Repositories\EmployeeRepositoryRepository.cs" />
     <Compile Include="WorkflowExtensions\ICanGetEmployeeFacts.cs" />
@@ -56,6 +57,8 @@
     <Compile Include="SendMailActivity.cs" />
     <Compile Include="WaitForData.cs" />
     <Compile Include="WaitForManagerWithNotApproving.cs" />
+    <Compile Include="WorkflowExtensions\INotifyOnTeams.cs" />
+    <Compile Include="WorkflowExtensions\NotifyOnTeams.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

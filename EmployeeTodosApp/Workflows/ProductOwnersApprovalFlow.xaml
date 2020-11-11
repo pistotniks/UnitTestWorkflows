@@ -1,6 +1,7 @@
-﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="EmployeeTodosApp.Workflows.ReportProcessing"
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="EmployeeTodosApp.Workflows.ProductOwnersApprovalFlow"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
- xmlns:c="clr-namespace:Activities;assembly=Activities"
+ xmlns:a="clr-namespace:Activities;assembly=Activities"
+ xmlns:local="clr-namespace:EmployeeTodosApp.ViewModel"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
  xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
@@ -8,20 +9,17 @@
  xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
  xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
  xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
- xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
- xmlns:employeeTodosApp="clr-namespace:EmployeeTodosApp"
- xmlns:viewModel="clr-namespace:EmployeeTodosApp.ViewModel"
- xmlns:system="clr-namespace:System;assembly=mscorlib">
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="report" Type="InArgument(viewModel:EmployeeTodo)" />
-    <x:Property Name="managerResponse" Type="OutArgument(viewModel:ProductOwnerResponse)" />
+    <x:Property Name="report" Type="InArgument(local:EmployeeTodo)" />
+    <x:Property Name="managerResponse" Type="OutArgument(local:ProductOwnerResponse)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
   <sap2010:WorkflowViewState.IdRef>EmployeeExpensesApplication.ReportProcessing_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <sco:Collection x:TypeArguments="system:String">
+    <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -38,6 +36,7 @@
       <x:String>System.Text</x:String>
       <x:String>System.Windows.Markup</x:String>
       <x:String>ExpenseReporting</x:String>
+      <x:String>EmployeeTodosApp.ViewModel</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -59,29 +58,33 @@
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="system:Boolean" Name="isStillEmployed" />
+      <Variable x:TypeArguments="x:Boolean" Name="isStillEmployed" />
     </Sequence.Variables>
-    <c:EmployeeCheckActivity sap2010:WorkflowViewState.IdRef="EmployeeCheckActivity_1" PersonName="[report.Employee.Name]" Result="[isStillEmployed]" />
+    <a:EmployeeCheckActivity sap2010:WorkflowViewState.IdRef="EmployeeCheckActivity_1" PersonName="[report.Employee.Name]" Result="[isStillEmployed]" />
     <If Condition="[isStillEmployed]" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Then>
-        <c:WaitForData x:TypeArguments="viewModel:ProductOwnerResponse" BookmarkName="SubmitResponse" sap2010:WorkflowViewState.IdRef="WaitForData`1_1" Result="[managerResponse]" />
+        <a:WaitForData x:TypeArguments="local:ProductOwnerResponse" BookmarkName="SubmitResponse" sap2010:WorkflowViewState.IdRef="WaitForData`1_1" Result="[managerResponse]" />
       </If.Then>
+      <If.Else>
+        <a:NotifyActivity PersonName="[report.Employee.Name]" sap2010:WorkflowViewState.IdRef="NotifyActivity_1" />
+      </If.Else>
     </If>
-    <sads:DebugSymbol.Symbol>d0pDOlxnaXRcVW5pdFRlc3RXb3JrZmxvd3NcRW1wbG95ZWVFeHBlbnNlc0FwcGxpY2F0aW9uXFJlcG9ydFByb2Nlc3NpbmcueGFtbAk6A0UOAgEBPgU+mQECAQk/BUMKAgECPmM+ewIBDD6DAT6WAQIBCj8TPyYCAQNBCUGtAQIBBUFNQV0CAQhBlwFBqgECAQY=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0lDOlxnaXRcVW5pdFRlc3RXb3JrZmxvd3NcRW1wbG95ZWVUb2Rvc0FwcFxXb3JrZmxvd3NcUmVwb3J0UHJvY2Vzc2luZy54YW1sCzsDSQ4CAQE/BT+ZAQIBC0AFRwoCAQI/Yz97AgEOP4MBP5YBAgEMQBNAJgIBA0IJQrIBAgEHRQlFdAIBBUJSQmICAQpCnAFCrwECAQhFJkU+AgEG</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
       <sap2010:ViewStateData Id="EmployeeCheckActivity_1" sap:VirtualizedContainerService.HintSize="464,22" />
       <sap2010:ViewStateData Id="WaitForData`1_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="NotifyActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
       <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,214" />
       <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="486,400">
         <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="system:String, system:Object">
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="EmployeeTodosApp.ReportProcessing_1" sap:VirtualizedContainerService.HintSize="526,480" />
+      <sap2010:ViewStateData Id="EmployeeExpensesApplication.ReportProcessing_1" sap:VirtualizedContainerService.HintSize="526,480" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

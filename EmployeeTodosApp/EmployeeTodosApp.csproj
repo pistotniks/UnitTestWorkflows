@@ -90,11 +90,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <XamlAppDef Include="Workflows\ReportProcessingWithDisapproval.xaml">
+    <XamlAppDef Include="Workflows\ProductOwnersApprovalFlow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </XamlAppDef>
-    <XamlAppDef Include="Workflows\ReportProcessing.xaml">
+    <XamlAppDef Include="Workflows\WrongCodeToSimulateTestFailure.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </XamlAppDef>

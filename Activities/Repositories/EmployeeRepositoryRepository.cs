@@ -7,7 +7,7 @@ namespace Activities.Repositories
     public Employee Get(string personName)
     {
       // Search by personName; Change it to simulate complex database change
-      var employee = new Employee {StillWorks = true};
+      var employee = new Employee {StillWorks = false};
       return employee;
     }
   }

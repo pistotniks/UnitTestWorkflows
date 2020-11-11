@@ -73,8 +73,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builders\EmployeeTodoBuilder.cs" />
-    <Compile Include="ReportProcessingWithDisapprovalWorkflowTests.cs" />
-    <Compile Include="ReportProcessingWorkflowTests.cs" />
+    <Compile Include="WrongCodeToSimulateTestFailureWorkflowTests.cs" />
+    <Compile Include="ProductOwnersApprovalFlowTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Retry.cs" />
     <Compile Include="SendMailActivityTests.cs" />

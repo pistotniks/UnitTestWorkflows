@@ -35,30 +35,39 @@ namespace EmployeeTodosApp
       {
         TodoTask = new EmployeeTodo
         {
-          Employee = new Person(),
+          Employee = new Person()
+          {
+            Name = "Sebastijan Pistotnik"
+          },
           StartDate = DateTime.Now,
+          Todo = "Write unit test for X workflow"
         },
+        
         Response = new ProductOwnerResponse()
+        {
+          ProductOwnerName = "Andreas Huber"
+        }
       };
 
 
       DataContext = model;
 
       workflowApplication = new WorkflowApplication(
-        new Workflows.ReportProcessing(),
+        new Workflows.ProductOwnersApprovalFlow(),
         new Dictionary<string, object>
         {
           {"report", model.TodoTask}
         });
 
       workflowApplication.Extensions.Add(new EmployeeRepositoryExtension(new EmployeeRepositoryRepository()));
+      workflowApplication.Extensions.Add(new NotifyOnTeams());
       
       workflowApplication.Completed += (wce) =>
       {
         var response = (ProductOwnerResponse) wce.Outputs["managerResponse"];
         if (response == null)
         {
-          MessageBox.Show("Workflow completed. Employee is not employed anymore and no approval for the TODO is needed.");
+          MessageBox.Show("Workflow completed. Employee is not employed anymore and no approval for the TODO is needed. Notifying office on teams channel.");
           this.Dispatcher.Invoke(() =>
           {
             ApprovalSubmit.IsEnabled = false;

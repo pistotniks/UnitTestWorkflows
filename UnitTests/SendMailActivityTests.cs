@@ -13,16 +13,16 @@ namespace UnitTests
     [Test]
     public void SimpleActivity()
     {
-      Dictionary<string, object> results = null;
-      Exception ex = null;
-
+      // Arrange
       Dictionary<string, object> wfParams = new Dictionary<string, object>();
       wfParams.Add("To", "sepi@simcorp.com");
       wfParams.Add("From", "donotreply@example.org");
       wfParams.Add("Subject", "Unit testing");
 
+      // Act
       SmtpStatusCode instance = WorkflowInvoker.Invoke(new SendMailActivity(), wfParams);
 
+      // Assert
       instance.Should().BeEquivalentTo(SmtpStatusCode.GeneralFailure);
     }
   }

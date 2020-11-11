@@ -11,7 +11,10 @@ namespace UnitTests.Builders
     {
       mDefaultData = new EmployeeTodo
       {
-        Employee = new Person(),
+        Employee = new Person()
+        {
+          Name = "FooPersonName"
+        },
         StartDate = DateTime.Now,
       };
       return this;
