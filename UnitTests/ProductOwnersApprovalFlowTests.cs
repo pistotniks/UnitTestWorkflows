@@ -1,7 +1,5 @@
 ﻿using System;
-using Activities;
 using Activities.WorkflowExtensions;
-using EmployeeTodosApp;
 using EmployeeTodosApp.ViewModel;
 using EmployeeTodosApp.Workflows;
 using FluentAssertions;
@@ -58,10 +56,11 @@ namespace UnitTests
       var notification = new Mock<INotifyOnTeams>();
       var employeeRepositoryExtension = new Mock<ICanGetEmployeeFacts>();
       employeeRepositoryExtension.Setup(facts => facts.IsEmployeeStillEmployed(It.IsAny<string>())).Returns(false);
-
+      
+      var employee = new EmployeeTodoBuilder().DefaultData().Build();
       WorkflowApplicationProxy application = new WorkflowApplicationBuilder()
         .ForWorkflow(new ProductOwnersApprovalFlow())
-        .WithData("report", new EmployeeTodoBuilder().DefaultData().Build())
+        .WithData("report", employee)
         .WithCollaborator(employeeRepositoryExtension.Object)
         .WithCollaborator(notification.Object)
         .Build();
@@ -79,7 +78,7 @@ namespace UnitTests
       application.VerifyAnError();
 
       actualResponse.Should().BeNull();
-      notification.Verify(notifier => notifier.Notify("FooPersonName"), Times.Once);
+      notification.Verify(notifier => notifier.Notify(employee.Employee.Name), Times.Once);
     }
 
     // The test must fail, since we are throwing an exc in the workflow
