@@ -22,10 +22,12 @@ namespace UnitTests
       var employeeRepositoryExtension = new Mock<ICanGetEmployeeFacts>();
       // Simulating a big and complex and time consuming change in a database
       employeeRepositoryExtension.Setup(facts => facts.IsEmployeeStillEmployed(It.IsAny<string>())).Returns(true);
-      
+
+      var productOwnersApprovalFlow = new ProductOwnersApprovalFlow();
+      var employeeTodo = new EmployeeTodoBuilder().DefaultData().Build();
       WorkflowApplicationProxy application = new WorkflowApplicationBuilder()
-        .ForWorkflow(new ProductOwnersApprovalFlow())
-        .WithData("report", new EmployeeTodoBuilder().DefaultData().Build())
+        .ForWorkflow(productOwnersApprovalFlow)
+        .WithData("report", employeeTodo)
         .WithCollaborator(employeeRepositoryExtension.Object)
         .WithCollaborator(notification.Object)
         .Build();
@@ -35,12 +37,12 @@ namespace UnitTests
       var productOwnerResponse = new ProductOwnerResponse { Approved = true };
       // Act
       application.ResumeBookmark("SubmitResponse", productOwnerResponse);
-
+      
       // Assert
-      Retry.WaitUntil(TestContext.Progress).Execute(() => application.ActualOutputs != null);
+      //Retry.WaitUntil(TestContext.Progress).Execute(() => application.ActualOutputs != null);
       ProductOwnerResponse actualResponse = (ProductOwnerResponse)application.ActualOutputs["managerResponse"];
 
-      application.VerifyAnError();
+      //application.VerifyAnError();
       
       actualResponse.Should().NotBeNull();
       actualResponse.Approved.Should().BeTrue();
@@ -65,17 +67,11 @@ namespace UnitTests
         .WithCollaborator(notification.Object)
         .Build();
 
+      // Act
       application.Run();
 
-      var productOwnerResponse = new ProductOwnerResponse { Approved = true };
-      // Act
-      application.ResumeBookmark("SubmitResponse", productOwnerResponse);
-
       // Assert
-      Retry.WaitUntil(TestContext.Progress).Execute(() => application.ActualOutputs != null);
       ProductOwnerResponse actualResponse = (ProductOwnerResponse)application.ActualOutputs["managerResponse"];
-
-      application.VerifyAnError();
 
       actualResponse.Should().BeNull();
       notification.Verify(notifier => notifier.Notify(employee.Employee.Name), Times.Once);
@@ -101,12 +97,7 @@ namespace UnitTests
       ProductOwnerResponse nullData = null;
 
       // Act
-      application.ResumeBookmark("SubmitResponse", nullData);
-
-      // Assert
-      Retry.WaitUntil(TestContext.Progress).Execute(() => application.Ex != null);
-
-      Assert.Throws<ApplicationException>(() => application.VerifyAnError());
+      Assert.Throws<ApplicationException>(() => application.ResumeBookmark("SubmitResponse", nullData));
     }
 
 
@@ -164,9 +155,6 @@ namespace UnitTests
         var productOwnerResponse = new ProductOwnerResponse { Approved = true };
 
         mApplication.ResumeBookmark("SubmitResponse", productOwnerResponse);
-
-        Retry.WaitUntil(TestContext.Progress).Execute(() => mApplication.ActualOutputs != null);
-        mApplication.VerifyAnError();
       }
 
       public void AndNotificationToTeamsShouldNeverHappened()

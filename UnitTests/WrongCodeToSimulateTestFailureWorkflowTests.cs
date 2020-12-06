@@ -29,10 +29,7 @@ namespace UnitTests
       application.ResumeBookmark("SubmitResponse", managerResponse);
 
       // Assert
-      Retry.WaitUntil(TestContext.Progress).Execute(() => application.ActualOutputs != null);
       Manager actualResponse = (Manager)application.ActualOutputs["managerResponse"];
-
-      application.VerifyAnError();
 
       actualResponse.Should().NotBeNull();
       actualResponse.Approved.Should().BeTrue();

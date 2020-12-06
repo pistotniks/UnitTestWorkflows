@@ -13,6 +13,7 @@ namespace UnitTests.Builders
     private Exception mEx;
     private AutoResetEvent mWaitHandle;
     private IDictionary<string, object> mActualOutputs;
+    private bool mIsBookmarked;
 
     public WorkflowApplicationProxy(Activity activity, Dictionary<string, object> data, IList<IWorkflowInstanceExtension> extensions)
     {
@@ -27,6 +28,7 @@ namespace UnitTests.Builders
       };
       mApplication.Idle += (wce) =>
       {
+        mIsBookmarked = true;
         mWaitHandle.Set();
       };
       mApplication.OnUnhandledException += arg =>
@@ -46,24 +48,31 @@ namespace UnitTests.Builders
     {
       mApplication.Run();
       mWaitHandle.WaitOne();
+      HandleErrors();
     }
 
     public BookmarkResumptionResult ResumeBookmark(
       string bookmarkName,
       object value)
     {
-      return mApplication.ResumeBookmark(bookmarkName, value);
+      mIsBookmarked = false;
+      BookmarkResumptionResult bookmarkResumptionResult = mApplication.ResumeBookmark(bookmarkName, value);
+      mWaitHandle.WaitOne();
+      HandleErrors();
+      return bookmarkResumptionResult;
     }
 
     public Exception Ex => mEx;
 
     public IDictionary<string, object> ActualOutputs => mActualOutputs;
 
-    public void VerifyAnError()
+    public bool IsBookmarked => mIsBookmarked;
+
+    public void HandleErrors()
     {
       if (Ex != null)
       {
-        TestContext.Progress.WriteLine(Ex);
+        Console.WriteLine(Ex);
         throw Ex;
       }
     }
