@@ -91,6 +91,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <XamlAppDef Include="Workflows\SendEmailAndNextActivityPassingOutputOfFirst.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </XamlAppDef>
+    <XamlAppDef Include="Workflows\ProductOwnersApprovalFlowThatDoesNotSwallowActivitiesWithNonDefConstr.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </XamlAppDef>
     <XamlAppDef Include="Workflows\ProductOwnersApprovalFlow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

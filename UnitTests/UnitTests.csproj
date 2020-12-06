@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builders\EmployeeTodoBuilder.cs" />
+    <Compile Include="ProductOwnersApprovalFlowThatDoesNotSwallowActivitiesWithNonDefConstrTests.cs" />
     <Compile Include="WrongCodeToSimulateTestFailureWorkflowTests.cs" />
     <Compile Include="ProductOwnersApprovalFlowTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
